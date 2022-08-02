@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html class=" kndsrcda idc0_341 brexzukns" lang="en" xmlns="http://www.w3.org/1999/html">
+<link rel="stylesheet" type="text/css" href="../styles.css"/>
+<head>
+    <title>Fast-Forward Merge: The superior git merging strategy</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6KQZYMX7LM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-6KQZYMX7LM');
+    </script>
+</head>
+<br><br>
+<center>
+    <table id="w" width="800" cellspacing="0" cellpadding="20" border="0">
+        <tbody>
+        <tr>
+            <td align="left">
+                <font face="Monospace, Courier New, Courier">
+                    <main>
+                        <a href="https://hayden.dev">..</a>
+                        <h1>Fast-Forward Merge: The superior git merging strategy</h1>
+                        <article>
+                            <p>
+                                Personally, I really dislike merge commits.
+                                <br><br>
+                                They create an unnecessary commit that was never created and can contain the changes from multiple previous commits which also exist within the branch and this can make reverting those changes harder.
+                                <br><br>
+                                By default, git will use a fast-forward merge if possible when doing <code>git merge</code>.
+
+                                <br><br>Today, this is simply not possible on the GitHub UI. If you use GitHub, you can use git directly and invoke the merge but this doesn't work
+                                in a corporate setting if branch protection is enabled. As a compromise I typically will do a rebase and merge (or squash and merge if I only want one commit) but this is not a true replacement for a true fast-forward merge.
+
+                            </p>
+                            <h2>So, what is a fast-forward merge?</h2>
+                                <p>
+
+                                A fast-forward merge is a type of merge where when complete, the HEAD (along with the index) is updated to point at the named commit, without creating an extra merge commit. The result is, your branch has a
+                                complete linear history with all original commits intact.
+                                    <br><br>
+                                    <img src="https://bitbucket.org/blog/wp-content/uploads/2018/06/what-is-a-fast-forward.gif">
+
+                                    <br><br>Most devs use a fast-forward merge every day. Run git pull on the master branch and the git client automatically fast-forward merges
+                                origin/master with the local master.
+                                This merge from origin/master to local master will never create a merge commit unless your local master was previously ahead of your origin.
+
+                                <br><br>
+
+                                Simply put, if your commit history is linear, git will by default use the fast-forward strategy. If it's not, then a merge commit is created.
+
+                                    <br><br>
+                                A "rebase and merge" works similar as well, but there is one main difference and that is that "rebase and merge" re-writes the commits causing the commit signatures to change.
+
+                                Now in some environments, this is fine. But in environments where GPG signed commits are required and security is important, having your commits merge without any hash change is a cryptography guarantee that the commit that
+                                was on X branch is now on Y branch. This allows reviewers to sign off on a commit hash, knowing that exact hash will be on the target branch.
+
+<!--                                    <br><br>-->
+
+                                    <h2>Other Considerations</h2>
+                                Fast-forward merging doesn't allow developers to be lazy. I've seen PRs with commits such as "forgot this", "cleanup" etc. These go against the spirit of git and can make the PR review process slower.
+                            Fast-forward merging
+                            forces you to put your best branch forward before a merge. While this requires a bit more effort on the developers side, I like it, and it has a lot of added benefits which stem from a good, clean git log.
+
+                            <br><br>
+
+                            One last advantage of fast-forward merging is since it simply moves commits over from the parent branch, it makes <a href="https://blog.logrocket.com/using-stacked-pull-requests-in-github/">stacked</a> PRs easier because it's merge is non destructive. You'll never have that issue
+                            of git being confused because you commited your feature to an old branch that has been previously squashed onto master.
+
+                                <h2>Lack of GitHub support</h2>
+                                It really surprises me that GitHub doesn't support this feature. If you read their <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/about-merge-methods-on-github">documentation</a>
+                            they mention fast-forward merging a few times as a comparison or as an implementation detail after a squash, but
+                                there is no mention about it when it comes to vanilla merges.
+
+
+
+                                <br><br>
+                                Hopefully in the future, GitHub considers supporting fast-forward merging like some of their competitors do.
+                            </p>
+                            <p>--</p>
+                        </article>
+                    </main>
+                    <br>
+                    <footer>
+                        <hr size="1" noshade="noshade">
+                        <font color="gray"><small><i></i></small></font>
+                        <p align="right"><font color="gray"><small><i>
+                            <time datetime="2022-07-13">2022.07.13</time>
+                            | <a href="https://hayden.dev">hayden.dev</a> </i></small></font></p>
+                    </footer>
+                </font>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</center>
+<br><br>
+</body>
+</html>
