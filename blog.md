@@ -1,6 +1,12 @@
-# [2025-01-11] How a unpinned java agent increased latency 10x
+# [2025-01-11] How a unpinned docker build increased API latency 10x
 
-Getting started
+One Friday afternoon, we deployed a minor release to our main backend API supporting [Pine](https://pine.ca?ref=hayden).
+
+Within minutes we started seeing large spikes in response times for all inbound API calls. 
+
+TODO SHOW PICTURE HERE.
+
+
 
 
 # blog-text-art-banner
