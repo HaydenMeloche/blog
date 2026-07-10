@@ -1,0 +1,23 @@
+{{ define "main" }}
+  <div class="main">
+    <article class="post-content">
+      <h1>{{ .Title }}</h1>
+      {{ .Content }}
+
+      <p class="post-end" aria-hidden="true"><span>$ exit 0</span></p>
+
+      <div class="post-nav">
+        {{ with .PrevInSection }}
+          <a href="{{ .RelPermalink }}">&#8592; Previous: {{ .Title }}</a>
+        {{ else }}
+          <a href="/">&#8592; Back to home</a>
+        {{ end }}
+        {{ with .NextInSection }}
+          <a href="{{ .RelPermalink }}">Next: {{ .Title }} &#8594;</a>
+        {{ else }}
+          <a href="/">Back to home &#8594;</a>
+        {{ end }}
+      </div>
+    </article>
+  </div>
+{{ end }}

@@ -1,0 +1,26 @@
+{{ define "main" }}
+  <div class="main">
+    <section>
+      <div class="hero">
+        <h1>{{ .Title }}</h1>
+        <p>{{ .Params.description }}</p>
+      </div>
+
+      <pre class="ascii" aria-hidden="true">~/field-notes $ ls -t
+{{ range $i, $p := .Pages -}}
+{{ if eq (add $i 1) (len $.Pages) }}└── {{ else }}├── {{ end }}{{ $p.File.ContentBaseName }}.md
+{{ end -}}
+{{ len .Pages }} file(s)</pre>
+
+      <div class="post-list">
+        {{ range .Pages }}
+          <article class="post-card">
+            <div class="post-meta">{{ .Date.Format "2006-01-02" }} · {{ .ReadingTime }} min read</div>
+            <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+            <p>{{ .Summary }}</p>
+          </article>
+        {{ end }}
+      </div>
+    </section>
+  </div>
+{{ end }}

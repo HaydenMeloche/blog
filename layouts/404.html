@@ -1,0 +1,16 @@
+{{ define "main" }}
+  <div class="main">
+    <section class="notfound">
+      <pre class="ascii" aria-hidden="true">┌─[ 404 ]─────────────────────────────────────
+│ $ cat {{ .RelPermalink }}
+│ cat: no such file or directory
+└──────────────────────────────────────────────</pre>
+      <h1>Page not found</h1>
+      <div class="link-row">
+        <a href="/">Home →</a>
+        <a href="/posts/">Writing →</a>
+        <a href="/about/">About →</a>
+      </div>
+    </section>
+  </div>
+{{ end }}

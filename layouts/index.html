@@ -1,0 +1,28 @@
+{{ define "main" }}
+  {{ $about := .Site.GetPage "/about" }}
+  <div class="main home">
+    <section class="profile">
+      <h1>Hayden Meloche</h1>
+      <p class="profile-role">{{ with $about }}{{ .Params.currently }} · {{ .Params.location }}{{ end }}</p>
+      <p class="profile-intro">{{ .Site.Params.bio }}</p>
+      <div class="link-row">
+        {{ with $about }}{{ range .Params.links }}<a href="{{ .href }}">{{ .label }} →</a>{{ end }}{{ end }}
+        <a href="/about/">About →</a>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2 class="section-label">Recent writing</h2>
+      <div class="post-list">
+        {{ range first 3 (where .Site.RegularPages "Section" "posts") }}
+          <article class="post-card">
+            <div class="post-meta">{{ .Date.Format "2006-01-02" }} · {{ .ReadingTime }} min read</div>
+            <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+            <p>{{ .Summary }}</p>
+          </article>
+        {{ end }}
+      </div>
+      <div class="more-link"><a href="/posts/">All writing →</a></div>
+    </section>
+  </div>
+{{ end }}
