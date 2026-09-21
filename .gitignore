@@ -3,6 +3,9 @@
 /resources/_gen/
 .hugo_build.lock
 
+# Node dependencies
+node_modules/
+
 # OS / editor cruft
 .DS_Store
 .idea/

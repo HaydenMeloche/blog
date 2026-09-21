@@ -631,6 +631,11 @@ a:hover {
 .resume-skills p { font-size: 15px; margin: 0; color: #2b2924; }
 .resume-formats { margin-top: 48px; color: var(--faint); }
 .resume-formats a { color: var(--muted); }
+.resume-agent-note { margin: 48px 0 0; padding-top: 16px; border-top: 1px solid var(--border); color: var(--faint); font-family: var(--mono); font-size: 11px; }
+.resume-agent-note span { display: block; }
+.resume-agent-note span + span { margin-top: 4px; }
+.resume-agent-note a { color: var(--muted); }
+.resume-agent-note code { font-family: inherit; font-size: inherit; background: none; }
 @media (max-width: 600px) {
   .resume-header { display: block; }
   .resume-contact { align-items: flex-start; margin-top: 18px; }

@@ -36,6 +36,6 @@
       <ul class="resume-open-source">{{ range .Params.open_source }}<li>{{ . }}</li>{{ end }}</ul>
     </section>
 
-    <p class="resume-formats">machine-readable: <a href="/resume/index.json">json</a> · <a href="/resume/index.md">markdown</a></p>
+    <p class="resume-agent-note"><span>machine-readable: <a href="/resume/index.json">json</a> · <a href="/resume/index.md">markdown</a></span><span><code>curl -H 'Accept: application/json' https://api.hayden.dev/resume</code></span><span>agents can request markdown via the <code>Accept</code> header: <code>Accept: text/markdown</code></span></p>
   </div>
 {{ end }}

@@ -1,0 +1,20 @@
+{
+  "name": "hayden-dev",
+  "private": true,
+  "scripts": {
+    "dev": "hugo server -D",
+    "build": "hugo --minify",
+    "hugo": "hugo",
+    "worker:dev": "wrangler dev --config workers/resume-api/wrangler.toml",
+    "worker:deploy": "wrangler deploy --config workers/resume-api/wrangler.toml",
+    "worker:login": "wrangler login --device --browser=false"
+  },
+  "devDependencies": {
+    "hugo-bin": "^0.163.0",
+    "wrangler": "^4.119.0"
+  },
+  "hugo-bin": {
+    "buildTags": "extended",
+    "version": "0.154.5"
+  }
+}
