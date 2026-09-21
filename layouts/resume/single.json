@@ -1,0 +1,2 @@
+{{- $resume := dict "name" .Params.name "headline" .Params.headline "contact" .Params.contact "experience" .Params.experience "projects" .Params.projects "open_source" .Params.open_source -}}
+{{ $resume | jsonify }}

@@ -1,0 +1,41 @@
+{{ define "main" }}
+  <div class="main resume">
+    <header class="resume-header">
+      <div>
+        <p class="eyebrow">resume / 2026</p>
+        <h1>{{ .Params.name }}</h1>
+        <p class="resume-headline">{{ .Params.headline }}</p>
+      </div>
+      <div class="resume-contact">
+        <a href="mailto:{{ .Params.contact.email }}">{{ .Params.contact.email }}</a>
+        <a href="{{ .Params.contact.linkedin }}">linkedin</a>
+        <a href="{{ .Params.contact.github }}">github</a>
+      </div>
+    </header>
+
+    <section class="resume-section">
+      <h2 class="section-label">Experience</h2>
+      <div class="resume-experience">
+        {{ range .Params.experience }}
+          <section class="resume-company">
+            <div class="resume-company-head"><h3>{{ .company }}</h3><span>{{ .location }}</span></div>
+            {{ range .roles }}
+              <div class="resume-role">
+                <div class="resume-role-head"><h4>{{ .title }}</h4><span>{{ .period }}</span></div>
+                {{ with .highlights }}<ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
+              </div>
+            {{ end }}
+          </section>
+        {{ end }}
+      </div>
+    </section>
+
+    <section class="resume-section">
+      <h2 class="section-label">Projects & open source</h2>
+      {{ range .Params.projects }}<div class="resume-project"><h3><a href="{{ .url }}">{{ .name }}</a></h3><ul>{{ range .highlights }}<li>{{ . }}</li>{{ end }}</ul></div>{{ end }}
+      <ul class="resume-open-source">{{ range .Params.open_source }}<li>{{ . }}</li>{{ end }}</ul>
+    </section>
+
+    <p class="resume-formats">machine-readable: <a href="/resume/index.json">json</a> · <a href="/resume/index.md">markdown</a></p>
+  </div>
+{{ end }}

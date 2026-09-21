@@ -1,0 +1,7 @@
+name = "hayden-resume-api"
+main = "src/index.js"
+compatibility_date = "2026-09-21"
+
+routes = [
+  { pattern = "api.hayden.dev", custom_domain = true }
+]

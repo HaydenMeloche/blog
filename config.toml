@@ -13,3 +13,14 @@ title = "hayden.dev"
   bio = "Engineering leader with a fintech background. Husband, hacker and macro tracker."
   status = "status: online · location: hayden.dev"
   email = "hello@hayden.dev"
+
+[mediaTypes]
+  [mediaTypes."text/markdown"]
+    suffixes = ["md"]
+
+[outputFormats]
+  [outputFormats.MARKDOWN]
+    mediaType = "text/markdown"
+    baseName = "index"
+    isPlainText = true
+    notAlternative = false
