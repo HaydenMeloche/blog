@@ -11,6 +11,16 @@
     <link rel="canonical" href="{{ .Permalink }}" />
     <meta name="theme-color" content="#faf9f5" />
 
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem("theme");
+          const dark = saved === "dark";
+          document.documentElement.dataset.theme = dark ? "dark" : "light";
+        } catch (_) {}
+      })();
+    </script>
+
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
 
@@ -46,6 +56,9 @@
             <a href="/posts/">writing</a>
             <a href="/resume/">resume</a>
             <a href="/about/">about</a>
+            <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+              <span class="theme-icon" aria-hidden="true">◐</span>
+            </button>
             <a class="rss-link" href="/index.xml" title="Subscribe via RSS" aria-label="Subscribe via RSS">
               <svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true">
                 <circle cx="3" cy="13" r="2" />
@@ -61,6 +74,17 @@
         {{ end }}
       </div>
     </div>
+    <script>
+      (() => {
+        const toggle = document.querySelector(".theme-toggle");
+        if (!toggle) return;
+        toggle.addEventListener("click", () => {
+          const dark = document.documentElement.dataset.theme !== "dark";
+          document.documentElement.dataset.theme = dark ? "dark" : "light";
+          try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch (_) {}
+        });
+      })();
+    </script>
     {{ partial "analytics.html" . }}
   </body>
 </html>
