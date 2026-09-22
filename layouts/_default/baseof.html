@@ -56,7 +56,7 @@
             <a href="/posts/">writing</a>
             <a href="/resume/">resume</a>
             <a href="/about/">about</a>
-            <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+            <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
               <span class="theme-icon" aria-hidden="true">◐</span>
             </button>
             <a class="rss-link" href="/index.xml" title="Subscribe via RSS" aria-label="Subscribe via RSS">
@@ -78,9 +78,18 @@
       (() => {
         const toggle = document.querySelector(".theme-toggle");
         if (!toggle) return;
+        const icon = toggle.querySelector(".theme-icon");
+        const setTheme = (dark) => {
+          document.documentElement.dataset.theme = dark ? "dark" : "light";
+          toggle.setAttribute("aria-pressed", String(dark));
+          toggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+          toggle.title = dark ? "Switch to light mode" : "Switch to dark mode";
+          if (icon) icon.textContent = dark ? "☀" : "☾";
+        };
+        setTheme(document.documentElement.dataset.theme === "dark");
         toggle.addEventListener("click", () => {
           const dark = document.documentElement.dataset.theme !== "dark";
-          document.documentElement.dataset.theme = dark ? "dark" : "light";
+          setTheme(dark);
           try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch (_) {}
         });
       })();

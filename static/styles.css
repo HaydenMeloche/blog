@@ -133,6 +133,13 @@ a:hover {
 
 .theme-toggle {
   appearance: none;
+  -moz-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin: 0;
   border: 0;
   padding: 0;
   background: none;
@@ -143,6 +150,9 @@ a:hover {
 }
 
 .theme-toggle:hover { color: var(--accent); }
+.theme-toggle:focus { outline: none; }
+.theme-toggle:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; border-radius: 50%; }
+.theme-toggle::-moz-focus-inner { border: 0; padding: 0; }
 .theme-icon { display: block; font-size: 16px; transform: rotate(-25deg); }
 
 .rss-link {
