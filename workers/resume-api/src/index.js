@@ -1,33 +1,7 @@
 const ORIGIN = "https://hayden.dev";
 
 function requestedFormat(accept) {
-  const types = accept
-    .toLowerCase()
-    .split(",")
-    .map((part) => {
-      const [type, ...parameters] = part.trim().split(";");
-      const quality = parameters.find((parameter) => parameter.trim().startsWith("q="));
-      return {
-        type,
-        quality: quality ? Number.parseFloat(quality.trim().slice(2)) : 1,
-      };
-    })
-    .filter(({ quality }) => quality > 0)
-    .sort((a, b) => b.quality - a.quality);
-
-  for (const { type } of types) {
-    if (type === "application/json" || type === "application/*" || type === "*/*") {
-      return "json";
-    }
-    if (type === "text/markdown" || type === "text/plain" || type === "text/*") {
-      return "markdown";
-    }
-    if (type === "text/html") {
-      return "html";
-    }
-  }
-
-  return "html";
+  return accept.toLowerCase().includes("application/json") ? "json" : "markdown";
 }
 
 export default {
@@ -47,7 +21,6 @@ export default {
 
     const format = requestedFormat(request.headers.get("Accept") || "");
     const paths = {
-      html: "/resume/",
       json: "/resume/index.json",
       markdown: "/resume/index.md",
     };
@@ -55,7 +28,7 @@ export default {
     const originURL = new URL(paths[format], ORIGIN);
     const response = await fetch(originURL, {
       method: request.method,
-      headers: { Accept: format === "json" ? "application/json" : format === "markdown" ? "text/markdown" : "text/html" },
+      headers: { Accept: format === "json" ? "application/json" : "text/markdown" },
     });
 
     const headers = new Headers(response.headers);
