@@ -56,9 +56,6 @@
             <a href="/posts/">writing</a>
             <a href="/resume/">resume</a>
             <a href="/about/">about</a>
-            <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
-              <span class="theme-icon" aria-hidden="true">◐</span>
-            </button>
             <a class="rss-link" href="/index.xml" title="Subscribe via RSS" aria-label="Subscribe via RSS">
               <svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true">
                 <circle cx="3" cy="13" r="2" />
@@ -66,6 +63,9 @@
                 <path d="M2 2.5a.5.5 0 0 1 .5-.5A11.5 11.5 0 0 1 14 13.5a.5.5 0 0 1-1 0A10.5 10.5 0 0 0 2.5 3 .5.5 0 0 1 2 2.5z" />
               </svg>
             </a>
+            <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
+              <span class="theme-icon" aria-hidden="true">◐</span>
+            </button>
           </nav>
         </header>
         {{ block "main" . }}{{ end }}

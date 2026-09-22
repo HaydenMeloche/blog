@@ -137,8 +137,9 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
+  align-self: center;
+  width: 17px;
+  height: 17px;
   margin: 0;
   border: 0;
   padding: 0;
@@ -152,7 +153,7 @@ a:hover {
 .theme-toggle:hover { color: var(--accent); }
 .theme-toggle:focus { outline: none; }
 .theme-toggle::-moz-focus-inner { border: 0; padding: 0; }
-.theme-icon { display: block; font-size: 16px; transform: rotate(-25deg); }
+.theme-icon { display: block; font-size: 17px; line-height: 1; }
 
 .rss-link {
   display: inline-flex;
