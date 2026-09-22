@@ -4,16 +4,18 @@ Personal blog built with [Hugo](https://gohugo.io/).
 
 **Live site:** [https://hayden.dev](https://hayden.dev)
 
-Prefer reading on GitHub? Posts are plain markdown:
-
-- [How EFT payment files work in Canada](content/posts/how-eft-payment-files-work-in-canada.md)
-
 ## Local development
 
-Requires Hugo extended (v0.154.5 or similar).
+Install the project-local Hugo Extended and Wrangler dependencies:
 
 ```bash
-hugo server -D
+npm install
+```
+
+Start the local Hugo server:
+
+```bash
+npm run dev
 ```
 
 Open [http://localhost:1313](http://localhost:1313).
@@ -21,7 +23,7 @@ Open [http://localhost:1313](http://localhost:1313).
 To build the production output locally:
 
 ```bash
-hugo --minify
+npm run build
 ```
 
 Output goes to `public/`.
