@@ -3,13 +3,13 @@
   "private": true,
   "scripts": {
     "dev": "hugo server -D",
-    "build": "hugo --minify",
+    "build": "hugo --gc --minify --cleanDestinationDir",
     "hugo": "hugo",
     "worker:dev": "wrangler dev --config workers/api/wrangler.toml",
     "worker:deploy": "wrangler deploy --config workers/api/wrangler.toml",
     "worker:login": "wrangler login --device --browser=false",
-    "deploy": "npx hugo && wrangler deploy",
-    "preview": "npx hugo && wrangler dev"
+    "deploy": "npm run build && wrangler deploy",
+    "preview": "npm run build && wrangler dev"
   },
   "devDependencies": {
     "hugo-bin": "^0.163.0",
