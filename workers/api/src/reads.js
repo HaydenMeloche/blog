@@ -1,8 +1,9 @@
 // Worth reading (/reads/) capture. The Worker only authenticates and forwards; the
 // save-read GitHub Actions workflow fetches the article and commits it.
+// Routed in routes.js:
 //
-//   GET  /reads/new?url=&title=  save form (opened by the bookmarklet)
-//   POST /reads                  {url, topic, note?, favourite?} with "Authorization: Bearer <READS_KEY>"
+//   GET  /reads/new?url=&title=  readForm: save form (opened by the bookmarklet)
+//   POST /reads                  saveRead: {url, topic, note?, favourite?} with "Authorization: Bearer <READS_KEY>"
 //
 // Secrets: READS_KEY (shared with the Shortcut/bookmarklet form) and
 // GH_DISPATCH_TOKEN (fine-grained PAT for the blog repo, Contents: read and write).
@@ -27,7 +28,7 @@ function keyMatches(given, expected) {
   return crypto.subtle.timingSafeEqual(a, b);
 }
 
-async function save(request, env) {
+export async function saveRead(request, env) {
   if (!env.READS_KEY || !env.GH_DISPATCH_TOKEN) return json({ message: "Saving isn't configured" }, 503);
 
   const auth = request.headers.get("Authorization") || "";
@@ -83,7 +84,8 @@ async function save(request, env) {
 const escapeHTML = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
-function form(requestURL) {
+export function readForm(request) {
+  const requestURL = new URL(request.url);
   const url = requestURL.searchParams.get("url") || "";
   const title = requestURL.searchParams.get("title") || "";
   const topics = TOPICS.map(
@@ -189,19 +191,4 @@ function form(requestURL) {
       "Referrer-Policy": "no-referrer",
     },
   });
-}
-
-export function handleReads(request, env) {
-  const requestURL = new URL(request.url);
-  const path = requestURL.pathname.replace(/\/+$/, "");
-
-  if (path === "/reads/new") {
-    if (request.method !== "GET") return new Response("Method not allowed", { status: 405, headers: { Allow: "GET" } });
-    return form(requestURL);
-  }
-  if (path === "/reads") {
-    if (request.method !== "POST") return new Response("Method not allowed", { status: 405, headers: { Allow: "POST" } });
-    return save(request, env);
-  }
-  return new Response("Not found", { status: 404 });
 }
