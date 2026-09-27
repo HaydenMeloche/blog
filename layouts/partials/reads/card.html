@@ -1,0 +1,11 @@
+{{- /* One read (Worth reading). Context: the read's page. */ -}}
+<article class="post-card read-card">
+  <div class="post-meta">
+    {{ .Date.Format "2006-01-02" }} · {{ .Params.domain }}
+    {{- range .GetTerms "topics" }} · <a class="read-topic" href="{{ .RelPermalink }}">#{{ .Title }}</a>{{ end }}
+    {{- if .Params.favourite }} · <a class="read-favourite" href="/reads/favourites/">★ favourite</a>{{ end }}
+  </div>
+  <h2><a href="{{ .Params.link }}" rel="noopener">{{ .Title }}<span class="read-arrow" aria-hidden="true"> ↗</span></a></h2>
+  {{ with .Content }}<div class="read-note">{{ . }}</div>{{ end }}
+  {{ with .Description }}<p>{{ . }}</p>{{ end }}
+</article>

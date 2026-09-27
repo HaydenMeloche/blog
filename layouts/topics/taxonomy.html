@@ -1,0 +1,13 @@
+{{ define "main" }}
+  {{ $reads := site.GetPage "/reads" }}
+  <div class="main">
+    <section>
+      <div class="hero">
+        <h1>{{ $reads.Title }}</h1>
+        <p>Browse by topic.</p>
+      </div>
+
+      {{ partial "reads/topics.html" (dict "active" nil) }}
+    </section>
+  </div>
+{{ end }}

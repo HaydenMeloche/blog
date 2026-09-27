@@ -1,3 +1,5 @@
+import { handleReads } from "./reads.js";
+
 const ORIGIN = "https://hayden.dev";
 
 function requestedFormat(accept) {
@@ -5,8 +7,12 @@ function requestedFormat(accept) {
 }
 
 export default {
-  async fetch(request) {
+  async fetch(request, env) {
     const requestURL = new URL(request.url);
+
+    if (requestURL.pathname === "/reads" || requestURL.pathname.startsWith("/reads/")) {
+      return handleReads(request, env);
+    }
 
     if (request.method !== "GET" && request.method !== "HEAD") {
       return new Response("Method not allowed", {

@@ -1,0 +1,71 @@
+name: Save a read
+
+# Triggered by the api.hayden.dev/reads Worker (repository_dispatch), or by hand
+# from the Actions tab / GitHub mobile app (workflow_dispatch).
+on:
+  repository_dispatch:
+    types: [save-read]
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Article URL
+        required: true
+      topic:
+        description: Topic
+        required: true
+        type: choice
+        # Keep in sync with data/topics.json
+        options: [engineering, leadership, ai, life]
+      note:
+        description: Why it's worth reading (optional)
+        required: false
+
+permissions:
+  contents: write
+  actions: write
+
+# Save one read at a time so commits don't race each other
+concurrency:
+  group: save-read
+  cancel-in-progress: false
+
+jobs:
+  save:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Inputs go through env, never straight into the script, so they can't inject shell
+      - name: Write the read
+        id: read
+        env:
+          READ_URL: ${{ github.event.client_payload.url || inputs.url }}
+          READ_TOPIC: ${{ github.event.client_payload.topic || inputs.topic }}
+          READ_NOTE: ${{ github.event.client_payload.note || inputs.note }}
+        run: node scripts/save-read.mjs
+
+      - name: Commit and push
+        if: steps.read.outputs.saved == 'true'
+        env:
+          FILE: ${{ steps.read.outputs.file }}
+          TITLE: ${{ steps.read.outputs.title }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          git commit -m "Add read: $TITLE"
+          git pull --rebase
+          git push
+
+      # Pushes made with GITHUB_TOKEN don't trigger other workflows, so start the deploy explicitly
+      - name: Deploy the site
+        if: steps.read.outputs.saved == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref "${{ github.event.repository.default_branch }}"

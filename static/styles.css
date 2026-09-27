@@ -312,6 +312,144 @@ a:hover {
   font-size: 16px;
 }
 
+/* ---------- home: recently read ---------- */
+.read-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.read-links li {
+  padding: 10px 0;
+}
+
+.read-links li:first-child {
+  padding-top: 0;
+}
+
+.read-links a {
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 560;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.read-links a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.read-links a:hover .read-arrow {
+  color: var(--accent);
+}
+
+.read-domain {
+  display: block;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--faint);
+}
+
+/* ---------- worth reading ---------- */
+.hero-feed {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+.hero h1 + .hero-feed {
+  margin-top: 0;
+}
+
+.read-arrow {
+  font-family: var(--mono);
+  font-size: 0.75em;
+  color: var(--faint);
+}
+
+.post-card h2 a:hover .read-arrow {
+  color: var(--accent);
+}
+
+.read-note {
+  margin: 10px 0;
+  padding-left: 12px;
+  border-left: 2px solid var(--accent);
+  color: var(--text-soft);
+  font-size: 16px;
+}
+
+.read-note p {
+  margin: 0;
+  color: inherit;
+}
+
+/* Article descriptions stop at two lines; notes are always shown in full */
+.read-card > p {
+  font-size: 14.5px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.topic-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.topic-row .tag {
+  color: var(--muted);
+}
+
+.topic-row .tag:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+.topic-row .tag.is-active {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.tag-count {
+  color: var(--faint);
+  margin-left: 2px;
+}
+
+.read-topic {
+  color: var(--faint);
+}
+
+.read-favourite {
+  color: var(--accent);
+}
+
+.read-favourite:hover {
+  text-decoration: none;
+}
+
+.read-topic:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--faint);
+}
+
 /* ---------- bio ---------- */
 .bio {
   margin-top: 56px;

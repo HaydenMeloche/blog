@@ -1,6 +1,26 @@
 baseURL = "https://hayden.dev/"
 languageCode = "en-us"
 title = "hayden.dev"
+# Keep topic names as written ("ai", not "Ai")
+capitalizeListTitles = false
+# robots.txt pointing at the sitemap (layouts/robots.txt)
+enableRobotsTXT = true
+
+# Worth reading topics live under /reads/topics/. Listing only topics also turns
+# off Hugo's default tags and categories, which nothing uses.
+[taxonomies]
+  topic = "topics"
+
+# No per-topic RSS feeds; /reads/index.xml covers every read
+[outputs]
+  taxonomy = ["html"]
+  term = ["html"]
+
+[permalinks]
+  [permalinks.taxonomy]
+    topics = "/reads/topics/"
+  [permalinks.term]
+    topics = "/reads/topics/:slug/"
 
 [markup]
   [markup.highlight]

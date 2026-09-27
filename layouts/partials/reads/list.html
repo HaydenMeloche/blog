@@ -1,0 +1,15 @@
+{{- /* Paginated list of reads. Context: dict "page" (the list page being rendered) and "pages" (the reads to show). */ -}}
+{{ $pager := .page.Paginate .pages 20 }}
+<div class="post-list">
+  {{ range $pager.Pages }}
+    {{ partial "reads/card.html" . }}
+  {{ end }}
+</div>
+
+{{ if gt $pager.TotalPages 1 }}
+  <nav class="pager">
+    {{ with $pager.Prev }}<a href="{{ .URL }}">&#8592; Newer</a>{{ else }}<span></span>{{ end }}
+    <span>page {{ $pager.PageNumber }}/{{ $pager.TotalPages }}</span>
+    {{ with $pager.Next }}<a href="{{ .URL }}">Older &#8594;</a>{{ else }}<span></span>{{ end }}
+  </nav>
+{{ end }}

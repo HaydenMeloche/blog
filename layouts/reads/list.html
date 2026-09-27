@@ -1,0 +1,21 @@
+{{ define "main" }}
+  {{- /* Renders /reads/ and its /reads/favourites/ subsection */ -}}
+  {{ $reads := site.GetPage "/reads" }}
+  {{ $pages := $reads.RegularPages }}
+  {{ if .Params.favourites }}{{ $pages = where $pages "Params.favourite" true }}{{ end }}
+  <div class="main">
+    <section>
+      <div class="hero">
+        <h1>{{ $reads.Title }}</h1>
+        {{ if .Params.favourites }}
+          <p>{{ len $pages }} all-time {{ cond (eq (len $pages) 1) "favourite" "favourites" }}.</p>
+        {{ else }}
+          {{ with .OutputFormats.Get "rss" }}<a class="hero-feed" href="{{ .RelPermalink }}">subscribe to articles I find interesting via RSS →</a>{{ end }}
+        {{ end }}
+      </div>
+
+      {{ partial "reads/topics.html" (dict "active" nil "favourites" .Params.favourites) }}
+      {{ partial "reads/list.html" (dict "page" . "pages" $pages) }}
+    </section>
+  </div>
+{{ end }}

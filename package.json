@@ -5,8 +5,8 @@
     "dev": "hugo server -D",
     "build": "hugo --minify",
     "hugo": "hugo",
-    "worker:dev": "wrangler dev --config workers/resume-api/wrangler.toml",
-    "worker:deploy": "wrangler deploy --config workers/resume-api/wrangler.toml",
+    "worker:dev": "wrangler dev --config workers/api/wrangler.toml",
+    "worker:deploy": "wrangler deploy --config workers/api/wrangler.toml",
     "worker:login": "wrangler login --device --browser=false"
   },
   "devDependencies": {

@@ -1,0 +1,16 @@
+{{- /* Topic chips, most-used first, after "all" and "★ favourites".
+Pass the current term page as .active, or .favourites true on the favourites page. */ -}}
+{{- $active := .active }}
+{{- $onFavourites := .favourites }}
+{{- $favourites := where (site.GetPage "/reads").RegularPages "Params.favourite" true }}
+{{- with site.Taxonomies.topics }}
+  <nav class="topic-row" aria-label="Topics">
+    <a class="tag{{ if not (or $active $onFavourites) }} is-active{{ end }}" href="/reads/">all</a>
+    {{- if or $favourites $onFavourites }}
+      <a class="tag{{ if $onFavourites }} is-active{{ end }}" href="/reads/favourites/">★ favourites <span class="tag-count">{{ len $favourites }}</span></a>
+    {{- end }}
+    {{- range .ByCount }}
+      <a class="tag{{ if and $active (eq .Page $active) }} is-active{{ end }}" href="{{ .Page.RelPermalink }}">{{ .Page.Title }} <span class="tag-count">{{ .Count }}</span></a>
+    {{- end }}
+  </nav>
+{{- end }}

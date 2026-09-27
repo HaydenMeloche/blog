@@ -9,3 +9,7 @@ node_modules/
 # OS / editor cruft
 .DS_Store
 .idea/
+
+# Local Worker secrets and wrangler state
+.dev.vars
+.wrangler/
