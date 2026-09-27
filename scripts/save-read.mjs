@@ -1,7 +1,9 @@
 // Saves a read for Worth reading (/reads/): fetches the article's metadata and writes
 // content/reads/<date>-<slug>.md. Run by .github/workflows/save-read.yml with
-// READ_URL, READ_TOPIC and (optionally) READ_NOTE set. READ_DATE (any date
-// or ISO timestamp) backdates the read, e.g. when importing older links.
+// READ_URL, READ_TOPIC and (optionally) READ_NOTE set. READ_FAVOURITE=true
+// marks it as an all-time favourite; for a link that's already saved, it marks
+// the existing read instead. READ_DATE (any date or ISO timestamp) backdates
+// the read, e.g. when importing older links.
 //
 // Local test: READ_URL=https://example.com READ_TOPIC=engineering node scripts/save-read.mjs
 
@@ -139,16 +141,29 @@ const yaml = (value) => JSON.stringify(value);
 const url = normalizeURL(process.env.READ_URL);
 const topic = String(process.env.READ_TOPIC || "").trim().toLowerCase();
 const note = String(process.env.READ_NOTE || "").trim();
+const favourite = /^(true|yes|1)$/i.test(String(process.env.READ_FAVOURITE || "").trim());
 if (!TOPICS.includes(topic)) fail(`Unknown topic "${topic}". Expected one of: ${TOPICS.join(", ")}`);
 
 for (const name of await readdir(READS_DIR)) {
   if (!name.endsWith(".md") || name === "_index.md") continue;
   const existing = await readFile(new URL(name, READS_DIR), "utf8");
-  if (existing.includes(`link: ${yaml(url.href)}\n`)) {
-    console.log(`Already saved as content/reads/${name}; nothing to do.`);
+  if (!existing.includes(`link: ${yaml(url.href)}\n`)) continue;
+
+  const file = `content/reads/${name}`;
+  if (!favourite || /^favourite: true$/m.test(existing)) {
+    console.log(`Already saved as ${file}; nothing to do.`);
     await setOutputs({ saved: false });
     process.exit(0);
   }
+  // Re-saving a link with favourite ticked marks the existing read as a favourite
+  const updated = existing.replace(/^(---\n[\s\S]*?\n)(---\n)/, "$1favourite: true\n$2");
+  const title = (() => {
+    try { return JSON.parse(existing.match(/^title: (.*)$/m)[1]); } catch { return name; }
+  })();
+  await writeFile(new URL(name, READS_DIR), updated);
+  console.log(`Marked ${file} as a favourite: ${title}`);
+  await setOutputs({ saved: true, file, title, message: `Favourite read: ${title}` });
+  process.exit(0);
 }
 
 const { meta, title: htmlTitle } = await fetchMetadata(url);
@@ -181,8 +196,9 @@ const frontMatter = [
   description && `description: ${yaml(description)}`,
   image && `image: ${yaml(image)}`,
   `topics: [${yaml(topic)}]`,
+  favourite && "favourite: true",
 ].filter(Boolean);
 
 await writeFile(new URL(file, READS_DIR), `---\n${frontMatter.join("\n")}\n---\n${note ? `${note}\n` : ""}`);
 console.log(`Saved content/reads/${file}: ${title}`);
-await setOutputs({ saved: true, file: `content/reads/${file}`, title });
+await setOutputs({ saved: true, file: `content/reads/${file}`, title, message: `Add read: ${title}` });

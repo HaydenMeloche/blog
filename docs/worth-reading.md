@@ -12,11 +12,19 @@ iOS Shortcut ─┐
 Bookmarklet ──┘   (Worker: checks key)   (fetches title/description)
 ```
 
-1. The Shortcut or bookmarklet form sends `{url, topic, note}` to the Worker with the reads key.
+1. The Shortcut or bookmarklet form sends `{url, topic, note, favourite}` to the Worker with the reads key.
 2. The Worker (`workers/api/src/reads.js`) checks the key and triggers `.github/workflows/save-read.yml`.
 3. The workflow runs `scripts/save-read.mjs`, which fetches the article's title and description, writes `content/reads/<date>-<slug>.md`, commits it, and starts the site deploy. Links that are already saved are skipped.
 
-A read can also be added by hand: **Actions → Save a read → Run workflow** (works from the GitHub mobile app too), or by adding a file to `content/reads/`. To edit or remove one, change or delete its file. To mark a read as an all-time favourite, add `favourite: true` to its front matter; it gets a ★ and shows up at [/reads/favourites/](https://hayden.dev/reads/favourites/).
+A read can also be added by hand: **Actions → Save a read → Run workflow** (works from the GitHub mobile app too), or by adding a file to `content/reads/`. To edit or remove one, change or delete its file.
+
+## Favourites
+
+All-time favourites get a ★ and show up at [/reads/favourites/](https://hayden.dev/reads/favourites/). There are three ways to mark one:
+
+- Tick **★ All-time favourite** in the bookmarklet form, or the **favourite** box when running the workflow by hand.
+- Save a link that's already on the site with favourite ticked: instead of skipping it, the workflow marks the existing read as a favourite.
+- Add `favourite: true` to a read's front matter.
 
 ## One-time setup
 
@@ -49,11 +57,13 @@ Create a Shortcut named **Worth reading** with **Show in Share Sheet** turned on
    - Request Body: **JSON** with `url` = URLs, `topic` = Chosen Item, `note` = Provided Input
 5. **Get Dictionary Value** `message` from Contents of URL → **Show Notification** with Dictionary Value
 
+Optional favourite step: add **Choose from Menu** ("Favourite?", options *No* / *Yes*) after step 3, set a **Text** variable to `true` under *Yes* and `false` under *No*, and add `favourite` = that variable to the JSON body in step 4. Left out, saves from the Shortcut are never favourites.
+
 Simpler alternative: **URL Encode** the Shortcut Input, then **Open URLs** `https://api.hayden.dev/reads/new?url=<URL Encoded Text>` to open the same form the bookmarklet uses.
 
 ## Bookmarklet
 
-Add a bookmark with this as the URL. It opens a small save form; enter the reads key the first time and the form remembers it on that device.
+Add a bookmark with this as the URL. It opens a small save form (link, topic, note, and a favourite checkbox); enter the reads key the first time and the form remembers it on that device.
 
 ```
 javascript:(()=>{window.open('https://api.hayden.dev/reads/new?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'save-read','width=520,height=640')})()

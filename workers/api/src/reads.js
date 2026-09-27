@@ -2,7 +2,7 @@
 // save-read GitHub Actions workflow fetches the article and commits it.
 //
 //   GET  /reads/new?url=&title=  save form (opened by the bookmarklet)
-//   POST /reads                  {url, topic, note?} with "Authorization: Bearer <READS_KEY>"
+//   POST /reads                  {url, topic, note?, favourite?} with "Authorization: Bearer <READS_KEY>"
 //
 // Secrets: READS_KEY (shared with the Shortcut/bookmarklet form) and
 // GH_DISPATCH_TOKEN (fine-grained PAT for the blog repo, Contents: read and write).
@@ -58,6 +58,9 @@ async function save(request, env) {
   const note = String(body.note || "").trim();
   if (note.length > MAX_NOTE) return json({ message: `Keep the note under ${MAX_NOTE} characters` }, 400);
 
+  // The Shortcut may send "true"/"yes" as text rather than a JSON boolean
+  const favourite = body.favourite === true || /^(true|yes|1)$/i.test(String(body.favourite ?? ""));
+
   const res = await fetch(`https://api.github.com/repos/${REPO}/dispatches`, {
     method: "POST",
     headers: {
@@ -67,7 +70,7 @@ async function save(request, env) {
       "User-Agent": "hayden.dev-reads",
       "X-GitHub-Api-Version": "2022-11-28",
     },
-    body: JSON.stringify({ event_type: "save-read", client_payload: { url: url.href, topic, note } }),
+    body: JSON.stringify({ event_type: "save-read", client_payload: { url: url.href, topic, note, favourite } }),
   });
 
   if (!res.ok) {
@@ -113,6 +116,8 @@ function form(requestURL) {
   .topic { display: inline-flex; align-items: center; gap: 6px; margin: 0; padding: 5px 10px; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; }
   .topic:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
   .topic input { margin: 0; accent-color: var(--accent); }
+  .favourite { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .favourite input { margin: 0; width: 16px; height: 16px; accent-color: var(--accent); }
   button { padding: 9px 16px; border: 0; border-radius: 6px; background: var(--accent); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
   button:disabled { opacity: .6; cursor: default; }
   #status { margin-top: 14px; min-height: 1.5em; }
@@ -128,6 +133,7 @@ function form(requestURL) {
     <label><span class="field-label">Link</span><input type="url" name="url" required value="${escapeHTML(url)}"></label>
     <fieldset><legend class="field-label">Topic</legend><div class="topics">${topics}</div></fieldset>
     <label><span class="field-label">Note (optional)</span><textarea name="note" maxlength="${MAX_NOTE}" placeholder="Why is it worth reading?"></textarea></label>
+    <label class="favourite"><input type="checkbox" name="favourite"> ★ All-time favourite</label>
     <label id="key-field" hidden><span class="field-label">Key (remembered on this device)</span><input type="password" name="key" autocomplete="current-password"></label>
     <button type="submit">Save</button>
     <button type="button" class="forget" id="forget" hidden>forget key</button>
@@ -156,7 +162,7 @@ function form(requestURL) {
       const res = await fetch("/reads", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: "Bearer " + key },
-        body: JSON.stringify({ url: form.url.value, topic: form.topic.value, note: form.note.value }),
+        body: JSON.stringify({ url: form.url.value, topic: form.topic.value, note: form.note.value, favourite: form.favourite.checked }),
       });
       const body = await res.json().catch(() => ({}));
       if (res.status === 401) { remember(""); showKey(); }

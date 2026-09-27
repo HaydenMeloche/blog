@@ -19,6 +19,10 @@ on:
       note:
         description: Why it's worth reading (optional)
         required: false
+      favourite:
+        description: All-time favourite (also marks an already-saved read)
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -48,18 +52,19 @@ jobs:
           READ_URL: ${{ github.event.client_payload.url || inputs.url }}
           READ_TOPIC: ${{ github.event.client_payload.topic || inputs.topic }}
           READ_NOTE: ${{ github.event.client_payload.note || inputs.note }}
+          READ_FAVOURITE: ${{ github.event.client_payload.favourite || inputs.favourite }}
         run: node scripts/save-read.mjs
 
       - name: Commit and push
         if: steps.read.outputs.saved == 'true'
         env:
           FILE: ${{ steps.read.outputs.file }}
-          TITLE: ${{ steps.read.outputs.title }}
+          MESSAGE: ${{ steps.read.outputs.message }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "$FILE"
-          git commit -m "Add read: $TITLE"
+          git commit -m "$MESSAGE"
           git pull --rebase
           git push
 
