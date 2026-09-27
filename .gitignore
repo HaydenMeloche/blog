@@ -13,3 +13,8 @@ node_modules/
 # Local Worker secrets and wrangler state
 .dev.vars
 .wrangler/
+
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example

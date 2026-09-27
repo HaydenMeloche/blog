@@ -7,11 +7,13 @@
     "hugo": "hugo",
     "worker:dev": "wrangler dev --config workers/api/wrangler.toml",
     "worker:deploy": "wrangler deploy --config workers/api/wrangler.toml",
-    "worker:login": "wrangler login --device --browser=false"
+    "worker:login": "wrangler login --device --browser=false",
+    "deploy": "npx hugo && wrangler deploy",
+    "preview": "npx hugo && wrangler dev"
   },
   "devDependencies": {
     "hugo-bin": "^0.163.0",
-    "wrangler": "^4.119.0"
+    "wrangler": "^4.142.0"
   },
   "hugo-bin": {
     "buildTags": "extended",
