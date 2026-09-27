@@ -204,6 +204,11 @@ a:hover {
   margin-bottom: 8px;
 }
 
+/* Pull the first home section up closer to the bio */
+.home .profile + .about-section {
+  margin-top: 28px;
+}
+
 .profile h1 {
   font-family: var(--display);
   font-size: 38px;
@@ -226,10 +231,6 @@ a:hover {
   color: var(--text-soft);
   max-width: 60ch;
   margin: 0;
-}
-
-.profile .link-row {
-  margin-top: 22px;
 }
 
 .more-link {
@@ -573,20 +574,6 @@ a:hover {
   margin: 0 0 22px;
 }
 
-.about-facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 22px;
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.about-facts .k {
-  color: var(--accent);
-  margin-right: 6px;
-}
-
 .about-section {
   margin-top: 52px;
 }
@@ -846,8 +833,14 @@ a:hover {
   margin: 0 0 16px;
 }
 
-.about-prose .about-facts {
+/* Email / LinkedIn / GitHub row, right under the heading */
+.about-prose .about-links {
   margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.about-prose .about-links a {
+  text-decoration: none;
 }
 
 .about-prose h2 {

@@ -2,10 +2,11 @@
   <div class="main about">
     <article class="about-prose">
       <h1>{{ .Title }}</h1>
-      <div class="about-facts">
-        {{ with .Params.currently }}<span><span class="k">now</span> {{ . }}</span>{{ end }}
-        {{ with .Params.location }}<span><span class="k">loc</span> {{ . }}</span>{{ end }}
-      </div>
+      {{ with .Params.links }}
+        <div class="link-row about-links">
+          {{ range . }}<a href="{{ .href }}">{{ .label }} →</a>{{ end }}
+        </div>
+      {{ end }}
       {{ .Content }}
     </article>
 
@@ -13,14 +14,5 @@
   /                                   \
   |  $ echo "thanks for reading" >> ~  |
   \___________________________________/</pre>
-
-    {{ with .Params.links }}
-      <section class="about-section">
-        <h2 class="section-label">Elsewhere</h2>
-        <div class="link-row">
-          {{ range . }}<a href="{{ .href }}">{{ .label }} →</a>{{ end }}
-        </div>
-      </section>
-    {{ end }}
   </div>
 {{ end }}

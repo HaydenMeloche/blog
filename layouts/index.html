@@ -5,10 +5,6 @@
       <h1>Hayden Meloche</h1>
       <p class="profile-role">{{ with $about }}{{ .Params.currently }} · {{ .Params.location }}{{ end }}</p>
       <p class="profile-intro">{{ .Site.Params.bio }}</p>
-      <div class="link-row">
-        {{ with $about }}{{ range .Params.links }}<a href="{{ .href }}">{{ .label }} →</a>{{ end }}{{ end }}
-        <a href="/about/">About →</a>
-      </div>
     </section>
 
     <section class="about-section">
