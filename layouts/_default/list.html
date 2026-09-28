@@ -6,12 +6,6 @@
         <p>{{ .Params.description }}</p>
       </div>
 
-      <pre class="ascii" aria-hidden="true">~/field-notes $ ls -t
-{{ range $i, $p := .Pages -}}
-{{ if eq (add $i 1) (len $.Pages) }}└── {{ else }}├── {{ end }}{{ $p.File.ContentBaseName }}.md
-{{ end -}}
-{{ len .Pages }} file(s)</pre>
-
       <div class="post-list">
         {{ range .Pages }}
           <article class="post-card">

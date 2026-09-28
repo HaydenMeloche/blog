@@ -1,9 +1,9 @@
-// GET /resume: proxies the résumé from hayden.dev as Markdown, or as JSON
-// when the request's Accept header asks for application/json.
+// GET /resume: proxies the résumé from hayden.dev as JSON, or as Markdown
+// when the request's Accept header asks for text/markdown.
 const ORIGIN = "https://hayden.dev";
 
 function requestedFormat(accept) {
-  return accept.toLowerCase().includes("application/json") ? "json" : "markdown";
+  return accept.toLowerCase().includes("text/markdown") ? "markdown" : "json";
 }
 
 export async function resume(request) {

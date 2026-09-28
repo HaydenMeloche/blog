@@ -7,20 +7,26 @@ LinkedIn: {{ .Params.contact.linkedin }}
 GitHub: {{ .Params.contact.github }}
 
 ## Experience
-{{ range .Params.experience }}
+{{- range .Params.experience }}
+
 ### {{ .company }} — {{ .location }}
-{{ range .roles }}
+{{- range .roles }}
+
 #### {{ .title }} · {{ .period }}
-{{ range .highlights }}- {{ . }}
-{{ end }}
-{{ end }}
-{{ end }}
+{{- range .highlights }}
+- {{ . }}
+{{- end }}
+{{- end }}
+{{- end }}
 
 ## Projects & open source
-{{ range .Params.projects }}
+{{- range .Params.projects }}
+
 ### [{{ .name }}]({{ .url }})
-{{ range .highlights }}- {{ . }}
-{{ end }}
-{{ end }}
-{{ range .Params.open_source }}- {{ . }}
-{{ end }}
+{{- range .highlights }}
+- {{ . }}
+{{- end }}
+{{- end }}
+{{ range .Params.open_source }}
+- {{ . }}
+{{- end }}

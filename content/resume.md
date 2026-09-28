@@ -1,9 +1,10 @@
 ---
 title: "Resume"
 layout: resume
+sitemap:
+  disable: true
 description: "Resume of Hayden Meloche, engineering leader and builder."
 outputs:
-  - HTML
   - JSON
   - MARKDOWN
 name: "Hayden Meloche"
@@ -44,11 +45,9 @@ projects:
   - name: "AlphaConsole"
     url: "https://www.alphaconsole.io/"
     highlights:
-      - "Built and grew AlphaConsole, a PC mod for Rocket League enabling cosmetic customizations not supported natively, scaling it to 1M+ downloads, 200K monthly active users, and a 300K-member Discord community while leading a team of 4 developers and 12 volunteer support staff."
+      - "Built and grew AlphaConsole, a PC mod for Rocket League enabling cosmetic customizations not supported natively, scaling it to 5M+ downloads, 300K monthly active users, and a 300K-member Discord community while leading a team of 4 developers and 12 volunteer support staff."
       - "Donated the project to the Rocket League modding community in 2021, where it was integrated as a plugin into BakkesMod, one of the most widely used tools in the community."
 open_source:
   - "Contributed to prominent open-source projects including AssertJ, one of the largest assertion libraries for Java."
   - "Published two open-source libraries for the Kotlin Ktor web framework, including KHealth, a Kubernetes-compatible health-check library with thousands of monthly downloads, and GracefulShutdown, enabling graceful shutdown support for Ktor applications."
 ---
-
-This page is available as [HTML](/resume/), [JSON](/resume/index.json), or [Markdown](/resume/index.md).

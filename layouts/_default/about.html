@@ -8,11 +8,7 @@
         </div>
       {{ end }}
       {{ .Content }}
+      <p class="about-agent-note"><span>resume is available via the api:</span><span><code>curl https://api.hayden.dev/resume</code></span><span>json by default, add <code>-H 'Accept: text/markdown'</code> for markdown</span><span>or grab it directly as <a href="/resume/index.md">markdown</a> / <a href="/resume/index.json">json</a></span></p>
     </article>
-
-    <pre class="ascii" aria-hidden="true">   ___________________________________
-  /                                   \
-  |  $ echo "thanks for reading" >> ~  |
-  \___________________________________/</pre>
   </div>
 {{ end }}
