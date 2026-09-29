@@ -26,7 +26,6 @@ on:
 
 permissions:
   contents: write
-  actions: write
 
 # Save one read at a time so commits don't race each other
 concurrency:
@@ -67,10 +66,3 @@ jobs:
           git commit -m "$MESSAGE"
           git pull --rebase
           git push
-
-      # Pushes made with GITHUB_TOKEN don't trigger other workflows, so start the deploy explicitly
-      - name: Deploy the site
-        if: steps.read.outputs.saved == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run deploy.yml --ref "${{ github.event.repository.default_branch }}"
