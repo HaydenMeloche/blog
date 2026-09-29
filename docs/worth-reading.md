@@ -49,7 +49,7 @@ Secrets persist across deploys, so this is only needed once (or when rotating a 
 Create a Shortcut named **Worth reading** with **Show in Share Sheet** turned on (receives URLs and Safari web pages):
 
 1. **Get URLs from** Shortcut Input
-2. **List**: `engineering`, `leadership`, `ai`, `life` → **Choose from List** (prompt: "Topic")
+2. **List**: `engineering`, `career`, `ai`, `life` → **Choose from List** (prompt: "Topic")
 3. **Ask for Input** (Text, prompt: "Note (optional)")
 4. **Get Contents of URL** `https://api.hayden.dev/reads`
    - Method: **POST**

@@ -15,7 +15,7 @@ on:
         required: true
         type: choice
         # Keep in sync with data/topics.json
-        options: [engineering, leadership, ai, life]
+        options: [engineering, career, ai, life]
       note:
         description: Why it's worth reading (optional)
         required: false
