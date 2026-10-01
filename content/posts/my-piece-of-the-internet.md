@@ -13,8 +13,8 @@ The next goal related to career development is forcing myself to reflect more of
 
 At work I share a lot of links to interesting reads in Slack, from places such as hackernews, reddit, X etc. Similar to how a lot of people have a "good reads" section, I want to have some place to share interesting articles that I've read for my friends and create an archive to reference later. Sort of like a curated subreddit of approved posts by me. Would be cool if that was an RSS feed.
 
-A lesser goal would be to share other thoughts and content, maybe around travel or working out. For those who know me in real life, I am a heavy calorie tracking app user and have been working out for a few years. I somewhat pride myself on a few lifestyle habbits such as falling asleep by 10:20pm and hitting my macros everyday. I am going to Italy in 3 weeks from now and part of me thinks writing about my Italy trip would be cool simply for myself later in life.
+A lesser goal would be to share other thoughts and content, maybe around travel or working out. For those who know me in real life, I am a heavy calorie tracking app user and have been working out for a few years. I somewhat pride myself on a few lifestyle habits such as falling asleep by 10:20pm and hitting my macros everyday. I am going to Italy in 3 weeks from now and part of me thinks writing about my Italy trip would be cool simply for myself later in life.
 
-Communication has never been exactly my strong suite. I tend to mumble and ramble. While writing this type of content out won't improve my speech, it can help me be concise and specific when I talk.
+Communication has never been exactly my strong suit. I tend to mumble and ramble. While writing this type of content out won't improve my speech, it can help me be concise and specific when I talk.
 
-That's it for now, we'll see where this takes me. I've owned `hayden.dev` for many years now, so at least I have something to point it too.
+That's it for now, we'll see where this takes me. I've owned `hayden.dev` for many years now, so at least I have something to point it to.
